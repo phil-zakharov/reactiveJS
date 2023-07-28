@@ -5,7 +5,6 @@
   "author": "Phil Zakharov",
   "license": "MIT",
   "private": false,
-  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "watch": "tsc -w -p tsconfig.json"

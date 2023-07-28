@@ -1,4 +1,4 @@
-import { Subscriber } from '../core/Subscriber';
+import { Subscriber } from '../core/Subsciber/Subscriber';
 
 export class Primitive<T> extends Subscriber<T> {
   private value;

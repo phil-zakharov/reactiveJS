@@ -1,4 +1,4 @@
-import { Subscriber } from '../core/Subscriber';
+import { Subscriber } from '../core/Subsciber/Subscriber';
 import { Primitive } from './Primitive';
 
 type Source<T> = Primitive<T> | Container<T>;
