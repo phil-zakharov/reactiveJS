@@ -7,37 +7,24 @@ function createEmitter(value: PrimitiveValue) {
   return instance;
 }
 
-function createHandler(emitter: EmitterValue) {
+function createHandler(...emitter: Emitter[] | Handler[]) {
   const instance = new Handler(emitter);
 
   return instance;
 }
 
-const e = createEmitter(10);
-const a = createHandler(e);
-const b = createHandler(a);
-// const d = createHandler(a , b)
+const a = createEmitter(1),
+  b = createEmitter(2),
+  c = createHandler(a, b),
+  d = createHandler(c).map((aValue: any, bValue: any) => aValue + bValue + 5);
 
-console.log('e = 10', e.getValue());
-console.log('a = 10', a.getValue());
-console.log('b = 10', b.getValue());
-e.setValue(15);
-console.log('e = 15', e.getValue());
-console.log('b = 15', b.getValue());
-console.log('a = 15', a.getValue());
-e.setValue((prev) => (prev as number) * 2);
-console.log('e = 30', e.getValue());
-console.log('a = 30', a.getValue());
-console.log('b = 30', b.getValue());
-b.map((v) => (v as number) * 3);
-console.log('e = 30', e.getValue());
-console.log('a = 30', a.getValue());
-console.log('b = 90', b.getValue());
-b.map((v) => (v as number) + 3.3);
-console.log('e = 30', e.getValue());
-console.log('a = 30', a.getValue());
-console.log('b = 93.3', b.getValue());
-a.map((v) => (v as number) + 5.5);
-console.log('e = 30', e.getValue());
-console.log('a = 35.5', a.getValue());
-console.log('b = 109.8', b.getValue());
+console.log('1 -> ', a.getValue()); // 1
+console.log('2 -> ', b.getValue()); // 2
+console.log('Exception -> ', c.getValue()); // Exception
+console.log('8 -> ', d.getValue()); // 8
+
+a.setValue((val) => val as number + 10);
+
+console.log('11 -> ', a.getValue()); // 11
+console.log('2 -> ', b.getValue()); // 2
+console.log('18 -> ', d.getValue()); // 18
