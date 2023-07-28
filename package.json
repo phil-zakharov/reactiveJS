@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c",
-    "watch": "tsc -w --project tsconfig.json"
+    "watch": "tsc -w -p tsconfig.json"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.3",
