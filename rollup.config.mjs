@@ -5,10 +5,11 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 
 export default {
-  input: 'src/main.js',
+  input: 'src/main.ts',
   output: [
     {
-      file: `dist/bundle.js`,
+      file: `bundle.js`,
+      dir: 'dist',
       format: 'cjs',
       sourcemap: true,
       exports: 'default',
