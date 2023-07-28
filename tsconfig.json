@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
+    "outDir": "dist/",
     "sourceMap": true,
     "strict": true,
     "noImplicitReturns": true,
@@ -10,7 +10,8 @@
     "moduleResolution": "node",
     "target": "ESNext",
     "allowJs": true,
-    "lib": ["ES2015"]
+    "lib": ["ES2015"],
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules"],
 }
