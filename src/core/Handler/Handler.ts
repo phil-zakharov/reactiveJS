@@ -1,20 +1,22 @@
 import { PrimitiveValue } from '../Emitter/types';
 import { EmitterValue, MapCb } from './types';
 
-export class Handler {
-  #emitter: EmitterValue;
-  #mapCbs: MapCb[] = [];
+export class Handler<T extends PrimitiveValue> {
+  #emitter: EmitterValue<T>;
+  #mapCbs: MapCb<T>[] = [];
 
-  constructor(emitter: EmitterValue) {
+  constructor(emitter: EmitterValue<T>) {
     this.#emitter = emitter;
   }
 
-  getValue(): PrimitiveValue | PrimitiveValue[] {
+  getValue(): T | T[] {
     let result = this.#unwrapValue();
+
     if (this.#mapCbs.length > 0) {
       const init = Array.isArray(result) ? result : [result];
+
       result = this.#mapCbs.reduce(
-        (acc: PrimitiveValue | PrimitiveValue[], cb: MapCb) => {
+        (acc: T | T[], cb: MapCb<T>) => {
           if (Array.isArray(acc)) {
             return cb(...acc);
           }
@@ -23,10 +25,11 @@ export class Handler {
         init,
       );
     }
+
     return result;
   }
 
-  #unwrapValue(): PrimitiveValue | PrimitiveValue[] {
+  #unwrapValue(): T | T[] {
     if (Array.isArray(this.#emitter)) {
       return this.#emitter.flatMap((e) => e.getValue());
     } else {
@@ -34,7 +37,7 @@ export class Handler {
     }
   }
 
-  map(fn: MapCb) {
+  map(fn: MapCb<T>) {
     this.#mapCbs.push(fn);
     return this;
   }
