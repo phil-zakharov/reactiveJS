@@ -3,21 +3,21 @@ import { PrimitiveValue } from './types';
 type SetValueArg<T> = T | ((arg: T) => T)
 
 export class Emitter<T extends PrimitiveValue> {
-  #value;
+  private value;
 
   constructor(value: T) {
-    this.#value = value;
+    this.value = value;
   }
 
   getValue() {
-    return this.#value;
+    return this.value;
   }
 
   setValue(arg: SetValueArg<T>) {
     if (typeof arg === 'function') {
-      this.#value = arg(this.getValue())
+      this.value = arg(this.getValue())
     } else {
-      this.#value = arg;
+      this.value = arg;
     }
   }
 }

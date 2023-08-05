@@ -2,43 +2,40 @@ import { PrimitiveValue } from '../Emitter/types';
 import { EmitterValue, MapCb } from './types';
 
 export class Handler<T extends PrimitiveValue> {
-  #emitter: EmitterValue<T>;
-  #mapCbs: MapCb<T>[] = [];
+  private emitter: EmitterValue<T>;
+  private mapCbs: MapCb<T>[] = [];
 
   constructor(emitter: EmitterValue<T>) {
-    this.#emitter = emitter;
+    this.emitter = emitter;
   }
 
   getValue(): T | T[] {
     let result = this.#unwrapValue();
 
-    if (this.#mapCbs.length > 0) {
+    if (this.mapCbs.length > 0) {
       const init = Array.isArray(result) ? result : [result];
 
-      result = this.#mapCbs.reduce(
-        (acc: T | T[], cb: MapCb<T>) => {
-          if (Array.isArray(acc)) {
-            return cb(...acc);
-          }
-          return cb(acc);
-        },
-        init,
-      );
+      result = this.mapCbs.reduce((acc: T | T[], cb: MapCb<T>) => {
+        if (Array.isArray(acc)) {
+          return cb(...acc);
+        }
+        return cb(acc);
+      }, init);
     }
 
     return result;
   }
 
-  #unwrapValue(): T | T[] {
-    if (Array.isArray(this.#emitter)) {
-      return this.#emitter.flatMap((e) => e.getValue());
-    } else {
-      return this.#emitter.getValue();
-    }
+  map(fn: MapCb<T>) {
+    this.mapCbs.push(fn);
+    return this;
   }
 
-  map(fn: MapCb<T>) {
-    this.#mapCbs.push(fn);
-    return this;
+  #unwrapValue(): T | T[] {
+    if (Array.isArray(this.emitter)) {
+      return this.emitter.flatMap((e) => e.getValue());
+    } else {
+      return this.emitter.getValue();
+    }
   }
 }

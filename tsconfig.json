@@ -12,6 +12,6 @@
     "allowJs": true,
     "lib": ["ES2015"],
   },
-  "include": ["src"],
+  "include": ["src", "index.d.ts"],
   "exclude": ["node_modules"],
 }
