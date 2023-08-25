@@ -1,7 +1,7 @@
 Library for reactive programming
 
 ### API
-```
+```js
 const a = createEmitter(1),
   b = createEmitter(2),
   c = createHandler(a, b),
