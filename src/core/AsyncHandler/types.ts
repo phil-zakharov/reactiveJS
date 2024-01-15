@@ -1,5 +1,5 @@
-import AsyncEmitter from '../AsyncEmitter';
-import AsyncHandler from './AsyncHandler';
+import AsyncEmitter from '../AsyncEmitter'
+import AsyncHandler from './AsyncHandler'
 
 export type PrimitiveValue = string | number;
 export type EmitterValue<T extends PrimitiveValue> =

@@ -1,2 +1,2 @@
-export { Emitter } from './Emitter';
-export type { PrimitiveValue } from './types';
+export { Emitter } from './Emitter'
+export type { PrimitiveValue } from './types'
